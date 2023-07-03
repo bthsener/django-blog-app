@@ -5,9 +5,10 @@ def post_index(request):
     posts = Post.objects.all()
     return render(request, 'post/index.html', {'posts': posts})
 
-def post_details(request):
-    get_object_or_404(Post, id=1)
-    return HttpResponse("<b>burası post details sayfası</b>")
+def post_details(request, id):
+    get_object_or_404(Post, id=id)
+    postRef = Post.objects.get(id=id)
+    return render(request, 'post/details.html', {'post': postRef})
 
 def post_create(request):
     return HttpResponse("<b>burası post create sayfası</b>")
