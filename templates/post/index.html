@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<>
     {% for post in posts %}
         {{ post.id }} <br>
-        {{ post.title }} <br>
-        {{ post.content }} <br>
-        {{ post.publishingDate }} <br>
+        <a href="/post/details/{{ post.id }}">{{ post.title }}</a> <br>
+        <a href="{% url 'details' id=post.id %}">{{ post.content }}</a> <br>
+        <a href="{{ post.get_absolute_url }}">{{ post.publishingDate }}</a> <br>
     {% endfor %}
 </body>
 </html>

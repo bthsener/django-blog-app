@@ -18,4 +18,3 @@ def post_update(request):
 
 def post_delete(request):
     return HttpResponse("<b>burası post delete sayfası</b>")
-
