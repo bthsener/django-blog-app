@@ -4,7 +4,7 @@ from post.models import Post
 class postAdmin(admin.ModelAdmin):
 
     list_display = ['title']
-    search_fields = ['title','content']
+    search_fields = ['title', 'content']
     class Meta:
         model = Post
 
