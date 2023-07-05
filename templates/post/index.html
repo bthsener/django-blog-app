@@ -5,6 +5,6 @@
         {{ post.id }} <br>
         <a href="/post/details/{{ post.id }}">{{ post.title }}</a> <br>
         <a href="{% url 'details' id=post.id %}">{{ post.content }}</a> <br>
-        <a href="{{ post.get_absolute_url }}">{{ post.publishingDate }}</a> <br>
+        <a href="{{ post.get_absolute_url }}">{{ post.publishingDate }}</a> <br> <br>
     {% endfor %}
 {% endblock %}
