@@ -14,7 +14,6 @@ def post_details(request, id):
 def post_create(request):
     # form = PostForm()
 
-
     # if request.method=="POST":
     #    print(request.POST)
     #
