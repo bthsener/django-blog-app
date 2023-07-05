@@ -2,9 +2,12 @@
 {% block title %}{{ block.super }}-index{% endblock %}
 {% block body %}
     {% for post in posts %}
-        {{ post.id }} <br>
-        <a href="/post/details/{{ post.id }}">{{ post.title }}</a> <br>
-        <a href="{% url 'details' id=post.id %}">{{ post.content }}</a> <br>
-        <a href="{{ post.get_absolute_url }}">{{ post.publishingDate }}</a> <br> <br>
-    {% endfor %}
+    <div class="card col-4" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.content }}</p>
+            <p class="card-text">{{ post.publishingDate }}</p>
+            <a href="{% url 'details' id=post.id %}" class="btn btn-primary">Detaylar</a>
+        </div>
+</div>    {% endfor %}
 {% endblock %}
