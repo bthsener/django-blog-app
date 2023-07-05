@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 {% block body %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Gönder">
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="container-fluid" style="max-width: 600px">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" value="Gönder">
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-</body>
-</html>

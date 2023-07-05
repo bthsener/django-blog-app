@@ -5,8 +5,8 @@
     {% for post in posts %}
     <div class="card col-md-5 m-1">
         <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.content }}</p>
+            <h5 class="card-title">{{ post.title}}</h5>
+            <p class="card-text">{{ post.content | linebreaks | truncatechars:150  }}</p>
             <p class="card-text">{{ post.publishingDate }}</p>
             <a href="{% url 'details' id=post.id %}" class="btn btn-primary">Detaylar</a>
         </div>
