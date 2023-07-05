@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-< lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends 'base.html' %}
+{% block title %}{{ block.super }}-index{% endblock %}
+{% block body %}
     {% for post in posts %}
         {{ post.id }} <br>
         <a href="/post/details/{{ post.id }}">{{ post.title }}</a> <br>
         <a href="{% url 'details' id=post.id %}">{{ post.content }}</a> <br>
         <a href="{{ post.get_absolute_url }}">{{ post.publishingDate }}</a> <br>
     {% endfor %}
-</body>
-</html>
+{% endblock %}
