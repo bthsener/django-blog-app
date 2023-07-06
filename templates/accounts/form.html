@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="container-fluid" style="max-width: 600px">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" value="Giriş Yap">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
