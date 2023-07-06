@@ -2,9 +2,22 @@ from django.shortcuts import render, HttpResponse, get_object_or_404, HttpRespon
 from post.models import Post
 from .form import PostForm, CommentForm
 from django.utils.text import slugify
+from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def post_index(request):
-    posts = Post.objects.all()
+    postlist = Post.objects.all()
+    paginator = Paginator(postlist, 25)
+
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator)
+
     return render(request, 'post/index.html', {'posts': posts})
 
 def post_details(request, id):
