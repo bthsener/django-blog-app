@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect, Http404
 from post.models import Post
 from .form import PostForm
+from django.utils.text import slugify
 
 def post_index(request):
     posts = Post.objects.all()
