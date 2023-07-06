@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="container-fluid" style="max-width: 600px">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}
                     <input type="submit" value="Gönder">

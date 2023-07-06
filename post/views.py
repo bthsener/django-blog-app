@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect
+from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect, Http404
 from post.models import Post
 from .form import PostForm
 
@@ -12,6 +12,9 @@ def post_details(request, id):
     return render(request, 'post/details.html', {'post': postRef})
 
 def post_create(request):
+    # if not request.user.is_authenticated():
+    #     return Http404
+
     # form = PostForm()
 
     # if request.method=="POST":
@@ -20,7 +23,7 @@ def post_create(request):
     # title = request.POST.get('title')
     # content = request.POST.get('content')
     # Post.objects.create(title=title,content=content)
-    form = PostForm(request.POST or None)
+    form = PostForm(request.POST or None, request.FILES or None)
     if request.method=="POST":
         # form = PostForm(request.POST)
         if form.is_valid():
@@ -36,8 +39,11 @@ def post_create(request):
     return render(request,'post/form.html', context)
 
 def post_update(request, id):
+    # if not request.user.is_authenticated():
+    #     return Http404
+
     postRef = Post.objects.get(id= id)
-    form = PostForm(request.POST or None, instance=postRef)
+    form = PostForm(request.POST or None,  request.FILES or None, instance=postRef)
 
     if form.is_valid():
         post = form.save()
@@ -50,6 +56,9 @@ def post_update(request, id):
     return render(request, 'post/form.html', context)
 
 def post_delete(request, id):
+    # if not request.user.is_authenticated():
+    #     return Http404
+
     postRef = get_object_or_404(Post, id=id)
     postRef.delete()
 
