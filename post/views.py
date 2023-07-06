@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect, Http404
 from post.models import Post
-from .form import PostForm
+from .form import PostForm, CommentForm
 from django.utils.text import slugify
 
 def post_index(request):
@@ -10,7 +10,20 @@ def post_index(request):
 def post_details(request, id):
     get_object_or_404(Post, id=id)
     postRef = Post.objects.get(id=id)
-    return render(request, 'post/details.html', {'post': postRef})
+
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.post = postRef
+        comment.save()
+        return HttpResponseRedirect(postRef.get_absolute_url)
+
+    context = {
+        'post': postRef,
+        'form': form,
+    }
+
+    return render(request, 'post/details.html', context)
 
 def post_create(request):
     # if not request.user.is_authenticated():

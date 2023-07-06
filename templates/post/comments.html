@@ -1,0 +1,10 @@
+{% load crispy_forms_tags %}
+
+<form>
+    <br>
+    <h5>Yorumlar:</h5>
+    <br>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-primary" value="Yorum Ekle">
+</form>
