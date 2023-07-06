@@ -1,11 +1,13 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Post(models.Model):
+    user = models.ForeignKey('auth.User', verbose_name='yazar', on_delete=models.CASCADE, related_name='post')
     title = models.CharField(max_length=120, verbose_name="baslik")
-    content = models.TextField(verbose_name="icerik")
+    content = RichTextField(verbose_name="icerik")
     publishingDate = models.DateTimeField(verbose_name="yayinlanma tarihi", auto_now_add=True)
     image = models.FileField(null=True, blank=True)
     slug = models.SlugField(unique=True, editable=False, max_length=130)

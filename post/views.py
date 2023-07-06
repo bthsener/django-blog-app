@@ -28,7 +28,9 @@ def post_create(request):
     if request.method=="POST":
         # form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
             return HttpResponseRedirect(post.get_absolute_url())
     else:
         form = PostForm
