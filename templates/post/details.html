@@ -24,12 +24,13 @@
         </div>
         {% include 'post/comments.html' %}
         <br>
+{#        <a href="{% url 'comment_create' %}" class="btn btn-primary">Yorum Yap</a>#}
+        <br>
         {% for comment in post.comments.all %}
                     <h4>{{ comment.name }} | <small>{{ comment.created_date|timesince }} önce </small></h4>
                     <p>{{ comment.content|linebreaks }}</p>
                     <hr>
         {% endfor %}
-
 </div>
 {% endblock %}
 </body>

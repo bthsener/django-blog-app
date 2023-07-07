@@ -25,6 +25,7 @@ def post_details(request, id):
     postRef = Post.objects.get(id=id)
 
     form = CommentForm(request.POST or None)
+
     if form.is_valid():
         comment = form.save(commit=False)
         comment.post = postRef
@@ -51,7 +52,7 @@ def post_create(request):
     # content = request.POST.get('content')
     # Post.objects.create(title=title,content=content)
     form = PostForm(request.POST or None, request.FILES or None)
-    if request.method=="POST":
+    if request.method == "POST":
         # form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
@@ -92,3 +93,17 @@ def post_delete(request, id):
     postRef.delete()
 
     return HttpResponseRedirect('/post/index/')
+
+# def comment_create(request, id):
+#     get_object_or_404(Post, id=id)
+#     post_ref = Post.objects.get(id=id)
+#
+#     form = CommentForm(request.POST or None)
+#
+#     if form.is_valid():
+#         comment = form.save(commit=False)
+#         comment.post = post_ref
+#         comment.save()
+#         return HttpResponseRedirect(post_ref.get_absolute_url)
+#     else:
+#         return Http404

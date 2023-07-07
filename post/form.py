@@ -15,7 +15,11 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         exclude = ['timestamp']
-        Fields = [
+        fields = [
             'name',
             'content',
         ]
+
+    def __init__(self, *args, **kwargs):
+        print("Hello")
+        super().__init__(*args, **kwargs)
