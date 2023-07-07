@@ -25,9 +25,9 @@
         {% include 'post/comments.html' %}
         <br>
         {% for comment in post.comments.all %}
-            <h4>{{ comment.name }} | <small>{{ comment.created_date|timesince }} önce </small></h4>
-            <p>{{ comment.content|linebreaks }}</p>
-            <br>
+                    <h4>{{ comment.name }} | <small>{{ comment.created_date|timesince }} önce </small></h4>
+                    <p>{{ comment.content|linebreaks }}</p>
+                    <hr>
         {% endfor %}
 
 </div>

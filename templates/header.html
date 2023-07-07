@@ -26,13 +26,21 @@
             <li class="nav-item">
                 <a class="nav-link disabled" href="{% url 'create' %}">Post Oluştur</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="{% url 'logout' %}">Çıkış Yap</a>
+            </li>
         {% endif %}
+        {% if not request.user.is_authenticated %}
         <li class="nav-item">
             <a class="nav-link disabled" href="{% url 'login' %}">Kullanıcı Giriş</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link disabled" href="{% url 'register' %}">Kullanıcı Kayıt</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link disabled" href="{% url 'admin:index' %}">Admin Giriş</a>
         </li>
+        {% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
