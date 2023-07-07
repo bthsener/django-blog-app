@@ -25,16 +25,16 @@ def post_details(request, id):
     postRef = Post.objects.get(id=id)
 
     form = CommentForm(request.POST or None)
-
-    if form.is_valid():
-        comment = form.save(commit=False)
-        comment.post = postRef
-        comment.save()
-        return HttpResponseRedirect(postRef.get_absolute_url)
+    #
+    # if form.is_valid():
+    #     comment = form.save(commit=False)
+    #     comment.post = postRef
+    #     comment.save()
+    #     return HttpResponseRedirect(postRef.get_absolute_url)
 
     context = {
         'post': postRef,
-        'form': form,
+        # 'form': form,
     }
 
     return render(request, 'post/details.html', context)
@@ -79,7 +79,7 @@ def post_update(request, id):
         post = form.save()
         return HttpResponseRedirect(post.get_absolute_url())
 
-    context= {
+    context = {
         'form': form,
     }
 
@@ -94,16 +94,20 @@ def post_delete(request, id):
 
     return HttpResponseRedirect('/post/index/')
 
-# def comment_create(request, id):
-#     get_object_or_404(Post, id=id)
-#     post_ref = Post.objects.get(id=id)
-#
-#     form = CommentForm(request.POST or None)
-#
-#     if form.is_valid():
-#         comment = form.save(commit=False)
-#         comment.post = post_ref
-#         comment.save()
-#         return HttpResponseRedirect(post_ref.get_absolute_url)
-#     else:
-#         return Http404
+def comment_create(request, id):
+    get_object_or_404(Post, id=id)
+    post_ref = Post.objects.get(id=id)
+
+    form = CommentForm(request.POST or None)
+
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.post = post_ref
+        comment.save()
+
+    context = {
+        'post': post_ref,
+        'form': form,
+    }
+
+    return render(request, 'post/details.html', context)

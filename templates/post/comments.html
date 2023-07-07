@@ -5,6 +5,9 @@
     <h5>Yorumlar:</h5>
     <br>
     {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" class="btn btn-primary" value="Yorum Ekle">
+    {% if form %}
+        {{ form | crispy }}
+        <input type="submit" class="btn btn-primary" value="Yorum Ekle">
+    {% endif %}
 </form>
+

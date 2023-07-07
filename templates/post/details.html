@@ -21,13 +21,15 @@
                 <a href="{% url 'update' id=post.id %}" class="btn btn-primary">Düzenle</a>
                 <a href="{% url 'delete' id=post.id %}" class="btn btn-primary">Sil</a>
             {% endif %}
+            <a href="{% url 'comment_create' id=post.id %}" class="btn btn-primary">Yorum Ekle1</a>
+        <br>
+        <br>
         </div>
+
         {% include 'post/comments.html' %}
         <br>
-{#        <a href="{% url 'comment_create' %}" class="btn btn-primary">Yorum Yap</a>#}
-        <br>
         {% for comment in post.comments.all %}
-                    <h4>{{ comment.name }} | <small>{{ comment.created_date|timesince }} önce </small></h4>
+                    <h4>{{ comment.name }} | <small>{{ comment.created_date|timesince }} ago </small></h4>
                     <p>{{ comment.content|linebreaks }}</p>
                     <hr>
         {% endfor %}
