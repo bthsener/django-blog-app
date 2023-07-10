@@ -133,4 +133,4 @@ def comment_create(request, id):
         'form': form,
     }
 
-    return render(request, 'post/details.html', context)
+    return render(request, 'post/form.html', context)

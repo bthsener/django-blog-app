@@ -24,11 +24,12 @@
                 {% endif %}
             {% endif %}
             <a href="{% url 'comment_create' id=post.id %}" class="btn btn-primary">Yorum Ekle</a>
+{#        {% url 'comment_create' %}#}
         <br>
         <br>
         </div>
 
-        {% include 'post/comments.html' %}
+{#        {% include 'post/comments.html' %}#}
         <br>
         {% for comment in post.comments.all %}
                     <h4>{{ comment.name }} | <small>{{ comment.created_date|timesince }} ago </small></h4>
