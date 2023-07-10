@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect, Http404
 from post.models import Post
 from .form import PostForm, CommentForm
@@ -9,6 +10,12 @@ def post_index(request):
     postlist = Post.objects.all()
     paginator = Paginator(postlist, 25)
 
+    query = request.GET.get('q')
+    if query:
+        postlist = postlist.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query))
+
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -17,7 +24,7 @@ def post_index(request):
     except EmptyPage:
         posts = paginator.page(paginator)
 
-    return render(request, 'post/index.html', {'posts': posts})
+    return render(request, 'post/index.html', {'posts': postlist})
 
 def post_details(request, id):
     get_object_or_404(Post, id=id)
