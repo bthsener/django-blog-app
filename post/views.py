@@ -31,9 +31,14 @@ def post_details(request, id):
     #     comment.save()
     #     return HttpResponseRedirect(postRef.get_absolute_url)
 
+    is_valid_user = False
+    if request.user == postRef.user:
+        is_valid_user = True
+
     context = {
         'post': postRef,
         # 'form': form,
+        'user': is_valid_user,
     }
 
     return render(request, 'post/details.html', context)
@@ -65,33 +70,51 @@ def post_create(request):
     context = {
         'form': form,
     }
+
+
     return render(request,'post/form.html', context)
 
 def post_update(request, id):
     # if not request.user.is_authenticated():
     #     return Http404
 
-    postRef = Post.objects.get(id= id)
-    form = PostForm(request.POST or None,  request.FILES or None, instance=postRef)
-
-    if form.is_valid():
-        post = form.save()
-        return HttpResponseRedirect(post.get_absolute_url())
+    post_ref = Post.objects.get(id = id)
+    form = PostForm(request.POST or None, request.FILES or None, instance=post_ref)
 
     context = {
         'form': form,
+        'post': post_ref,
     }
 
-    return render(request, 'post/form.html', context)
+    if request.user == post_ref.user:
+        if form.is_valid():
+            post = form.save()
+            return HttpResponseRedirect(post.get_absolute_url())
+
+        context = {
+            'form': form,
+            'post': post_ref,
+        }
+        return render(request, 'post/form.html', context)
+    else:
+        context = {
+            'post': post_ref,
+        }
+        return HttpResponseRedirect('/post/details/%d'%post_ref.id)
+
 
 def post_delete(request, id):
     # if not request.user.is_authenticated():
     #     return Http404
 
     postRef = get_object_or_404(Post, id=id)
-    postRef.delete()
+    if request.user == postRef.user:
+        postRef.delete()
+        return HttpResponseRedirect('/post/index/')
+    else:
+        print("silinmedi")
+        return HttpResponseRedirect('/post/details/%d'%postRef.id)
 
-    return HttpResponseRedirect('/post/index/')
 
 def comment_create(request, id):
     get_object_or_404(Post, id=id)
