@@ -5,7 +5,6 @@ from django.utils.text import slugify
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-
 def post_index(request):
     postlist = Post.objects.all()
     paginator = Paginator(postlist, 25)
@@ -24,8 +23,8 @@ def post_details(request, id):
     get_object_or_404(Post, id=id)
     postRef = Post.objects.get(id=id)
 
-    form = CommentForm(request.POST or None)
-    #
+    # form = CommentForm(request.POST or None)
+
     # if form.is_valid():
     #     comment = form.save(commit=False)
     #     comment.post = postRef
@@ -104,6 +103,7 @@ def comment_create(request, id):
         comment = form.save(commit=False)
         comment.post = post_ref
         comment.save()
+        return HttpResponseRedirect(post_ref.get_absolute_url())
 
     context = {
         'post': post_ref,
