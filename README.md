@@ -18,4 +18,5 @@ myenv\Scripts\activate
 * Start the server
 ```
 python manage.py runserver
-```  
+```
+Open your browser and go to http://localhost:8000/home to view the application
